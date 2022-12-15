@@ -18,8 +18,8 @@ namespace SecurityCameraWebAPI.Controllers
 
         public CameraController(CameraContext context)
         {
-            _manager = new CameraManagerDB(context);
-            //_manager = new CameraManager();
+            //_manager = new CameraManagerDB(context);
+            _manager = new CameraManager();
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -44,16 +44,16 @@ namespace SecurityCameraWebAPI.Controllers
         [HttpGet("Images/{id}")]
         public ActionResult GetImage(int id)
         {
-            Camera camera = _manager.GetById(id);
-            byte[] image = camera.Picture;
-            return File(image, "image/jpg");
+               Camera camera = _manager.GetById(id);
+                byte[] image = camera.Picture;
+                return File(image, "image/jpg");
         }
 
         // POST api/<CameraController>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Camera> Post([FromBody] Camera value)
+        public ActionResult<Camera> Post([FromBody] string value)
         {
             //Camera camera = _manager.Add(value);
             //if (camera == null) return BadRequest();

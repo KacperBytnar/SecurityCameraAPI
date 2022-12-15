@@ -14,12 +14,14 @@ namespace SecurityCameraWebAPI.Managers
             _context = context;
         }
 
-        public Camera Add(Camera newCamera)
+        public Camera Add(string CameraJSON)
         {
-            newCamera.Id = 0;
-            _context.Cameras.Add(newCamera);
+            Camera newCameraObject= Newtonsoft.Json.JsonConvert.DeserializeObject<Camera>(CameraJSON);
+
+            newCameraObject.Id = 0;
+            _context.Cameras.Add(newCameraObject);
             _context.SaveChanges();
-            return newCamera;
+            return newCameraObject;
         }
 
         public Camera? Delete(int Id)
@@ -43,7 +45,6 @@ namespace SecurityCameraWebAPI.Managers
         {
             return _context.Cameras.FirstOrDefault(camera => camera.Id == Id);
         }
-
 
     }
 }
